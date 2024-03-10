@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Blogging Page</title>
+  <style>
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+        }
+
+  /* Header Styling */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0; /* Added padding for top and bottom */
+  text-align: center;
+  font-family: "Arial Black", sans-serif; /* Example of a different font */
+}
+
+/* Form Styling */
+#blog-form {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background color for form */
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+#post-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+#post-form input[type="text"],
+#post-form textarea,
+#post-form input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+#post-form button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#post-form button[type="submit"]:hover {
+  background-color: #555;
+}
+
+/* Blog Posts Styling */
+#blog-posts {
+  margin: 20px;
+}
+.post {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #fff; /* White background for posts */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
+.post h3 {
+  margin-top: 0;
+}
+.post p {
+  margin-bottom: 10px;
+}
+.post img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Adjustments for smaller screens */
+  #blog-form,
+  .post {
+    padding: 15px;
+  }
+  #blog-form input[type="text"],
+  #blog-form textarea,
+  #blog-form input[type="file"] {
+    padding: 8px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Create Post</h1>
+  </header>
+
+  <div id="blog-form">
+    <h2>Add a New Post</h2>
+    <form id="post-form" action="addpost" method="POST">
+      {% csrf_token %}
+      <div>
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+      </div>
+      <div>
+        <label for="content">Content:</label>
+        <textarea id="content" rows="4" name="content" required></textarea>
+      </div>
+      <div>
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" accept="image/*" name="image" >
+      </div>
+      <button type="submit" >Submit</button>
+
+    </form>
+  </div>
+  </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-box {
+      width: 300px;
+      padding: 40px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      text-align: center;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #007bff; /* Blue button color */
+      color: #fff; /* White text color */
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0056b3; /* Darker blue color on hover */
+    }
+
+    .forgot-password {
+      text-align: right;
+      font-size: 14px;
+      margin-top: 10px;
+      display: block;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .remember-me {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .remember-me input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="login-box">
+  <h2>Login</h2>
+  <form id="loginForm" class="login-form" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <input type="email" name="email" id="email" placeholder="Email" required>
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" id="password" placeholder="Password" required>
+    </div>
+    <div class="form-group remember-me">
+      <input type="checkbox" id="rememberMe">
+      <label for="rememberMe">Remember Me</label>
+    </div>
+    <button type="submit" class="btn">Login</button>
+    <a href="forgetpassword" class="forgot-password">Forgot Password?</a><br>
+    <p class="text-center text-muted mt-5 mb-0">   To create an account? <a href="signup"
+                                                                            class="fw-bold text-body"><u>Signup
+        here</u></a></p>
+  </form>
+  <div id="errorPopup" class="error-message" style="display: none;">Invalid email or password. Please try again.</div>
+</div>
+
+<!--<script>-->
+<!--  document.getElementById('loginForm').addEventListener('submit', function (event) {-->
+<!--    event.preventDefault();-->
+<!--    var email = document.getElementById('email').value;-->
+<!--    var password = document.getElementById('password').value;-->
+<!--    var rememberMe = document.getElementById('rememberMe').checked;-->
+
+<!--    // Validate email and password-->
+<!--    if (validateEmail(email) && validatePassword(password)) {-->
+<!--      // Perform your login logic here, e.g., sending data to a server-->
+<!--      console.log('Email:', email);-->
+<!--      console.log('Password:', password);-->
+<!--      console.log('Remember Me:', rememberMe);-->
+
+<!--      // Redirect to another page-->
+<!--      window.location.href = 'login'; // Replace 'your_page_url' with the URL of the page you want to redirect to-->
+<!--    } else {-->
+<!--      // Show error message-->
+<!--      document.getElementById('errorPopup').style.display = 'block';-->
+<!--    }-->
+<!--  });-->
+
+<!--  // Function to validate email-->
+<!--  function validateEmail(email) {-->
+<!--    var re = /\S+@\S+\.\S+/;-->
+<!--    return re.test(email);-->
+<!--  }-->
+
+<!--  // Function to validate password-->
+<!--  function validatePassword(password) {-->
+<!--    // You can add more specific password validation rules here if needed-->
+<!--    return password.length >= 6;-->
+<!--  }-->
+<!--</script>-->
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blog Post Layout</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+            font-size: 14px;
+            font-family: sans-serif;
+            color: #333;
+            background: #ddd;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: #aaa;
+        }
+
+        nav {
+            position: fixed;
+            background: rgba(20, 20, 20, 0.9);
+            z-index: 9;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: -90px;
+            transition: all 0.4s;
+        }
+
+        nav a {
+            font-size: 1em;
+            padding: 2em 1.5em;
+            transition: all 0.4s;
+        }
+
+        nav a:hover {
+            background: rgba(252, 198, 0, 0.6);
+            color: #333;
+        }
+
+        /* Logo here */
+        nav:before {
+            content: "NodCMS";
+            position: absolute;
+            left: 10px;
+            font-size: 10px;
+            border: 1px solid;
+            border-radius: 5px;
+            padding: 9px 5px;
+        }
+
+        .wrapper {
+            position: relative;
+            padding-bottom: 56.25125%;
+            height: 0;
+        }
+
+        .hero {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 200px;
+            background-color: #8fc9f3;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            overflow: hidden;
+            animation: fader 10s infinite;
+        }
+
+        .hero:before {
+            content: " ";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 90%, rgba(0, 0, 0, 0.65) 100%);
+            z-index: 0;
+        }
+
+        .hero h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #776e6e;
+            font-size: 2em; /* Adjust font size as needed */
+            margin: 0;
+            padding: 0;
+            z-index: 1;
+        }
+
+        .hero a {
+            text-decoration: none;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            background: #fdf9f9;
+            padding: 0.12em 0.5em;
+            font-family: share;
+            font-size: calc(1vw + 1vh + 3.5vmin);
+            line-height: calc(1vw + 1vh + 6.5vmin);
+            color: #000;
+            text-transform: uppercase;
+            mix-blend-mode: screen;
+            transition: all 0.4s;
+        }
+
+        .hero a:hover {
+            line-height: 1.3em;
+            mix-blend-mode: exclusion;
+        }
+
+        .container {
+            padding: 0.1em 1em;
+            text-align: justify;
+            line-height: 1.5em;
+            letter-spacing: 0.02em;
+            background: #fff;
+            margin: 1em;
+        }
+
+        .gen,
+        .sel,
+        .men {
+            display: flex;
+            position: absolute;
+            align-items: center;
+            justify-content: center;
+            right: 30px;
+            bottom: 150px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.8);
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+            z-index: 5;
+        }
+
+        .men {
+            background: rgba(0, 0, 0, 0.1);
+            color: #fff;
+            top: 20px;
+            height: 1.4em;
+            width: 1.5em;
+            overflow: hidden;
+            bottom: auto !important;
+            border-radius: 0;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .men:hover {
+            background: rgba(220, 220, 220, 0.91);
+            color: #111;
+        }
+
+        .men:hover + nav,
+        nav:hover {
+            top: 0;
+        }
+
+        .sel {
+            right: 70px;
+        }
+
+        .gen:hover,
+        .sel:hover {
+            background: #0a2f54;
+            color: #ddd;
+        }
+
+        footer {
+            background: #0a0c10;
+            padding: 1em;
+            text-align: center;
+            color: #ddd;
+            font-size: 11px;
+        }
+
+        [data-tip]::after {
+            text-transform: none;
+            font-size: 0.9em;
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+            position: absolute;
+            display: none;
+            opacity: 0;
+            top: 40px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            content: attr(data-tip);
+            font-family: sans-serif;
+            text-align: center;
+            min-width: 3em;
+            max-width: 21em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 1em 1.5em;
+            box-shadow: 0 1em 2em -0.5em rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            z-index: 1000;
+        }
+
+        [data-tip]:hover::after {
+            display: block;
+            opacity: 1;
+        }
+
+        #btn-twtr {
+            clear: both;
+            color: #fff;
+            border: 2px solid;
+            border-radius: 3px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-family: sans-serif;
+            font-size: 14px;
+            width: 13em;
+            padding: 5px 10px;
+            font-weight: 600;
+            margin: 40px auto;
+            background: rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.2);
+            opacity: 0.8;
+        }
+
+        #btn-twtr:hover {
+            color: #fff;
+            opacity: 1;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(252, 198, 0, 0.6);
+            color: #333;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-post {
+            background-color: #dceefb;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .post-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .post-buttons button {
+            padding: 8px 15px;
+            margin-left: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comment-button {
+            background-color: #4dabe5;
+            color: white;
+        }
+
+        .edit-button {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .delete-button {
+            background-color: #555555;
+            color: white;
+        }
+
+        .image {
+            height: 320px;
+            width: 620px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <a href="#" class="men">☰</a>
+    <nav>
+        <a href="createpost">Create Post</a>
+        <a href="viewpost">View Post</a>
+        <a href="search">Search Post</a>
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Settings</a>
+            <div class="dropdown-content">
+                <a href="profile">Profile</a>
+                <a href="#">Advanced Settings</a>
+                <a href="aboutus">About Us</a>
+            </div>
+        </div>
+        <a href="home">Logout</a>
+    </nav>
+    <div class="hero">
+        <h1><a href="#"> “Don’t focus on having a great blog. Focus on producing a blog that’s great for your readers.”</a></h1>
+    </div>
+</div>
+<div class="container">
+
+  <div class="container">
+     <div class="blog-post">
+
+   <h2>1. Tutorials and How-to Guides</h2>
+   <img src="../static/fix1.png" alt="Post 1 Image">
+   <p>Tutorials and How-to guides are probably the simplest type of blog post you can work on. They are easy because they involve you talking about things you are already familiar with such as your product or service.
+
+     The most important thing when it comes to how-to guides is to break down your tutorial into the smallest steps and into the simplest terms. Don’t assume your readers know what they’re doing — this is a tutorial, remember?
+
+     Think about your recent work, and you can probably find some great ideas for you to write a tutorial on. Our co-founder built the largest WordPress resource, WPBeginner, by following this exact same principle.</p>
+   <p>Additional content for Post 1...</p>
+   <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+ </div>
+ </div>
+
+ </div>
+
+ <div class="container">
+     <div class="blog-post">
+   <h2>2.Latest Industry News</h2>
+   <img src="../static/fix2.jpg" alt="Post 2 Image">
+   <p>You have your morning routine, just like I do. You skim the online news and find the latest trends in your industry. Why not make your morning routine into a blog post?
+     Find a few of the most recent events in your industry and blog about them. You can even link to news articles if you feel it is appropriate.
+
+ The important thing is that you add your “flavor” to it (thoughts, criticism, etc). You will have a new blog post in minutes! (Here’s a good example).
+   </p>
+   <p>Additional content for Post 2...</p>
+   <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="container">
+     <div class="blog-post">
+   <h2>3.Current Events</h2>
+   <img src="../static/fix3.jpg" alt="Post 3 Image">
+   <p>Similar to the point above, this one is even more generic. What do you enjoy reading? What catches your eye? What will you talk to your friends about? Write about THAT!
+
+     News is always happening, from the latest Marvel movie to Russia’s latest antics. The brilliance of writing a post on current events is that people are already looking for more information and thoughts about these subjects. Your opinion post on current events could become the next viral sensation!
+
+     It’s even better if you can tie the current events with your product or service.</p>
+   <p>Additional content for Post 3...</p>
+   <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="container">
+     <div class="blog-post">
+   <h2>4. Controversial Subjects</h2>
+   <img src="../static/fix4.jpg" alt="Post 4 Image">
+   <p>This type of blog post can be really fun to write, but remember to be wise. Controversy is always newsworthy — just look at the local news, they’re always reporting on different controversies!
+
+     You just need to figure out which controversy interests you, and how you can add to the conversation. Be sure to use the keywords around the controversy too. Mac vs. PC, MailChimp vs AWeber, Gun Control, etc. are just some basic ideas.
+
+     Since controversies are highly emotional, you want to be careful and choose your words wisely.</p>
+   <p>Additional content for Post 4...</p>
+   <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+ </div>
+ </div>
+ </div>
+ <div class="container">
+     <div class="blog-post">
+   <h2>5. Infographics</h2>
+   <img src="../static/fix5.jpg" alt="Post 1 Image">
+   <p>Admittedly, the more professional the graphic, the better it is, but you can still make an incredible post by producing a chart you made in PowerPoint. The key is to win people over with a chart or graph that helps explain things.
+
+     Tools like Canva, Piktochart, and Visage are perfect for creating beautiful charts online.</p>
+   <p>Additional content for Post 1...</p>
+   <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="container">
+     <div class="blog-post">
+   <h2>6.Inspirational Stories</h2>
+   <img src="../static/fix6.jpg" alt="Post 2 Image">
+   <p>Although controversy sells, so does inspiration. Share some good news. Share about a major breakthrough your company had that really put you on the map. Talk about how your grandfather inspired you to start your craft.
+
+     Inspirational and hopeful stories go viral because it is something people want to experience themselves. So share your story of hope and watch it inspire others to do the same. Your success is a story that needs to be told.</p>
+   <p>Additional content for Post 2...</p>
+   <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+ </div>
+ </div>
+ </div>
+
+ <div class="container">
+     <div class="blog-post">
+   <h2>7.Surveys and Polls</h2>
+   <img src="../static/fix7.jpg" alt="Post 3 Image">
+   <p>Surveys and polls are like quizzes, but more for your benefit rather than testing your reader’s knowledge. You can survey and poll your readerships to figure out new features for your products, to get ideas for your blog, and more.
+
+   </p>
+   <p>There are a variety of survey tools and forms that you can use to embed your form on your page.</p>
+     <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+     </div>
+ </div>
+ </div>
+
+ <div class="container">
+     <div class="blog-post">
+   <h2>8.Frequently Asked Questions (FAQs)</h2>
+   <img src="../static/fix8.jpg" alt="Post 4 Image">
+   <p>Frequently Asked Questions are fantastic posts because it is likely that your readers have already googled these terms in hopes of an answer. OptinMonster has written posts that answer these common questions and they have performed well.
+
+     You can do a couple of things. You could write one long post answering all the frequently asked questions. But it may be more beneficial to create a blog series.
+
+     You don’t have to tell your readers it is a series. Just answer a common question once a week, and you will have great content that is likely beneficial for SEO as well.</p>
+     <div class="post-buttons">
+     <button class="comment-button">Comment</button>
+     <button class="edit-button">Edit</button>
+     <button class="delete-button">Delete</button>
+     </div>
+     </div>
+ </div>
+ <div class="container">
+    <div class="blog-post">
+  <h2>9.A better Blogger experience on the web</h2>
+  <img src="../static/fix9.jpeg" alt="Post 4 Image">
+  <p>Since 1999, millions of people have expressed themselves on Blogger. From detailed posts about almost every apple variety you could ever imagine to a blog dedicated to the art of blogging itself, the ability to easily share, publish and express oneself on the web is at the core of Blogger’s mission.
+     As the web constantly evolves, we want to ensure anyone using Blogger has an easy and intuitive experience publishing their content to the web.</p>
+    <div class="post-buttons">
+    <button class="comment-button">Comment</button>
+    <button class="edit-button">Edit</button>
+    <button class="delete-button">Delete</button>
+    </div>
+    </div>
+</div>
+<div class="container">
+    <div class="blog-post">
+  <h2>10.An update on Google+ and Blogger</h2>
+  <img src="../static/fix10.png" alt="Post 4 Image">
+  <p>Following the announcement of Google+ API deprecation scheduled for March 2019, a number of changes will be made to Blogger’s Google+ integration on 4 February 2019. Google+ widgets: Support for the “+1 Button”, “Google+ Followers” and “Google+ Badge” widgets in Layout will no longer be available. All instances of these widgets will be removed from all blogs. +1 buttons: The +1/G+ buttons and Google+ share
+    links below blog posts and in the navigation bar will be removed.</p>
+    <div class="post-buttons">
+    <button class="comment-button">Comment</button>
+    <button class="edit-button">Edit</button>
+    <button class="delete-button">Delete</button>
+    </div>
+    </div>
+</div>
+<div class="container">
+    <div class="blog-post">
+  <h2>11.A first few tweaks toward a better Blogger</h2>
+  <img src="../static/fix11.jpeg" alt="Post 4 Image">
+  <p>From New York to Jakarta, Blogger is one of the most popular ways to publish the things you’re passionate about. Still, we’ve heard that there’s more we can do to make the platform a better place to have your unique voice be heard. So we’ll be making some
+    adjustments over time to bring you a faster, easier to use and more beautiful Blogger.</p>
+    <div class="post-buttons">
+    <button class="comment-button">Comment</button>
+    <button class="edit-button">Edit</button>
+    <button class="delete-button">Delete</button>
+    </div>
+    </div>
+</div>
+    {% for st in s %}
+    <div class="container">
+        <div class="blog-post">
+        <h2>{{st.title}}</h2>
+        <p>{{st.content}}</p>
+        <img src="../static/images/{{st.image}}" alt="{{st.image}}" class="image"/>
+        <div class="post-buttons">
+            <button class="comment-button">Comment</button>
+            <button class="edit-button">Edit</button>
+            <button class="delete-button">Delete</button>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+ </div>
+
+</div>
+<footer>
+    <p>Text generated by <a href="#">Startup Ipsum</a></p>
+</footer>
+</body>
+</html>
